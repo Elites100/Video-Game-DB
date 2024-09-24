@@ -1,0 +1,660 @@
+---
+title: apiDocumentation
+author: Boden Kahn 
+date: 11/27/23
+format:
+    html:
+        theme: cosmos
+        toc: true
+        html-math-method: katex
+        embed-resources: true
+        copy-code: true
+---
+# Video Game Database API Documentation
+
+## Introduction
+
+The Video Game Database API is designed to provide access to information about video games, including details about games, developers, publishers, reviews, tags, and more. The Final table is the result of joining all of the information in the other tables to provide one table to access all of the data. This documentation outlines the available endpoints, request methods, and expected responses, as well as examples to start from.
+
+Base URL: `http://127.0.0.1:5000/api`
+
+## Authentication
+
+Authentication is required for certain operations. An API key must be included in the request headers to access these functionalities.
+
+### API Key
+
+Include the API key in the headers of your request as follows:
+
+```{plaintext}
+Headers:
+  Content-Type: application/json
+  API-Key: 123456789
+```
+
+## Error Handling
+
+The API returns standard HTTP status codes to indicate the success or failure of a request. In case of an error, additional details will be provided in the response body.
+
+- `200 OK`: The request was successful.
+- `201 Created`: The resource was successfully created.
+- `204 No Content`: The request was successful, but there is no content to return.
+- `400 Bad Request`: The request was invalid or malformed.
+- `401 Unauthorized`: Authentication is required or credentials are invalid.
+- `404 Not Found`: The requested resource does not exist.
+- `500 Internal Server Error`: An unexpected error occurred on the server.
+
+## Available Endpoints
+
+### Games
+
+#### Get All Games
+
+- **URL:** `/api/games`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name`: Filter games by name (optional)
+- **Response:**
+  - `200 OK`: List of games in JSON format.
+
+#### Get a Specific Game
+
+- **URL:** `/api/games/<int:game_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the specified game in JSON format.
+  - `404 Not Found`: Game with the given ID not found.
+
+#### Get All IDs Associated with a Game
+
+- **URL:** `/api/games/ids/<int:game_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: List of all IDs associated with the specified game in JSON format.
+  - `404 Not Found`: Game with the given ID not found.
+
+#### Insert a New Game
+- **URL:** `/api/games`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with game details.
+- **Response:**
+  - `201 Created`: Game successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Game
+- **URL:** `/api/games/<int:game_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated game details.
+- **Response:**
+  - `200 OK`: Game successfully updated.
+  - `404 Not Found`: Game with the given ID not found.
+
+#### Delete a Game
+- **URL:** `/api/games/<int:game_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Game successfully deleted.
+  - `404 Not Found`: Game with the given ID not found.
+
+### Tags
+
+#### Get All Tags
+
+- **URL:** `/api/tags`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name`: Filter tags by name (optional)
+- **Response:**
+  - `200 OK`: List of tags in JSON format.
+
+#### Get a Specific Tag
+
+- **URL:** `/api/tags/<int:tag_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the specified tag in JSON format.
+  - `404 Not Found`: Tag with the given ID not found. 
+
+#### Insert a New Tag
+
+- **URL:** `/api/tags`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with tag details.
+- **Response:**
+  - `201 Created`: Tag successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Tag
+
+- **URL:** `/api/tags/<int:tag_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated tag details.
+- **Response:**
+  - `200 OK`: Tag successfully updated.
+  - `404 Not Found`: Tag with the given ID not found.
+
+#### Delete a Tag
+
+- **URL:** `/api/tags/<int:tag_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Tag successfully deleted.
+  - `404 Not Found`: Tag with the given ID not found.
+
+### Reviews
+
+#### Get All Reviews
+
+- **URL:** `/api/reviews`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `reviewer_name`: Filter reviews by reviewer name (optional)
+  - `comment`: Filter reviews by comment (optional) 
+  - `title`: Filter reviews by title (optional) 
+- **Response:**
+  - `200 OK`: List of reviews in JSON format.
+
+#### Get a Specific Review
+
+- **URL:** `/api/reviews/<int:review_id>`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name`: Filter games by name (optional)
+- **Response:**
+  - `200 OK`: Details of the specified review in JSON format.
+  - `404 Not Found`: Review with the given ID not found.
+
+#### Insert a New Review
+
+- **URL:** `/api/reviews`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with review details.
+- **Response:**
+  - `201 Created`: Review successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Review
+
+- **URL:** `/api/reviews/<int:review_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated review details.
+- **Response:**
+  - `200 OK`: Review successfully updated.
+  - `404 Not Found`: Review with the given ID not found.
+
+#### Delete a Review
+
+- **URL:** `/api/reviews/<int:review_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Review successfully deleted.
+  - `404 Not Found`: Review with the given ID not found.
+
+### Developers
+
+#### Get All Developers
+
+- **URL:** `/api/developers`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name`: Filter developers by name (optional)
+- **Response:**
+  - `200 OK`: List of developers in JSON format.
+
+#### Get a Specific Developer
+
+- **URL:** `/api/developers/<int:developer_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the specified developer in JSON format.
+  - `404 Not Found`: Developer with the given ID not found.
+
+#### Insert a New Developer
+
+- **URL:** `/api/developers`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with developer details.
+- **Response:**
+  - `201 Created`: Developer successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Developer
+
+- **URL:** `/api/developers/<int:developer_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated developer details.
+- **Response:**
+  - `200 OK`: Developer successfully updated.
+  - `404 Not Found`: Developer with the given ID not found.
+
+#### Delete a Developer
+
+- **URL:** `/api/developers/<int:developer_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Developer successfully deleted.
+  - `404 Not Found`: Developer with the given ID not found.
+
+### Publishers
+
+#### Get All Publishers
+
+- **URL:** `/api/publishers`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name`: Filter publishers by name (optional)
+- **Response:**
+  - `200 OK`: List of publishers in JSON format.
+
+#### Get a Specific Publisher
+
+- **URL:** `/api/publishers/<int:publisher_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the specified publisher in JSON format.
+  - `404 Not Found`: Publisher with the given ID not found.
+
+#### Insert a New Publisher
+
+- **URL:** `/api/publishers`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with publisher details.
+- **Response:**
+  - `201 Created`: Publisher successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Publisher
+
+- **URL:** `/api/publishers/<int:publisher_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated publisher details.
+- **Response:**
+  - `200 OK`: Publisher successfully updated.
+  - `404 Not Found`: Publisher with the given ID not found.
+
+#### Delete a Publisher
+
+- **URL:** `/api/publishers/<int:publisher_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Publisher successfully deleted.
+  - `404 Not Found`: Publisher with the given ID not found.
+
+### Engines
+
+#### Get All Engines
+
+- **URL:** `/api/engines`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name` (optional): Filter by engine name.
+- **Response:**
+  - `200 OK`: List of engines in JSON format.
+
+#### Get a Specific Engine
+
+- **URL:** `/api/engines/<int:engine_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the specified engine in JSON format.
+  - `404 Not Found`: Engine with the given ID not found.
+
+#### Insert a New Engine
+
+- **URL:** `/api/engines`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with engine details.
+- **Response:**
+  - `201 Created`: Engine successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update an Engine
+
+- **URL:** `/api/engines/<int:engine_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated engine details.
+- **Response:**
+  - `200 OK`: Engine successfully updated.
+  - `404 Not Found`: Engine with the given ID not found.
+
+#### Delete an Engine
+
+- **URL:** `/api/engines/<int:engine_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Engine successfully deleted.
+  - `404 Not Found`: Engine with the given ID not found.
+
+### Devices
+
+#### Get All Devices
+
+- **URL:** `/api/devices`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name` (optional): Filter by device name.
+- **Response:**
+  - `200 OK`: List of devices in JSON format.
+
+#### Get a Specific Device
+
+- **URL:** `/api/devices/<int:device_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the specified device in JSON format.
+  - `404 Not Found`: Device with the given ID not found.
+
+#### Insert a New Device
+
+- **URL:** `/api/devices`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with device details.
+- **Response:**
+  - `201 Created`: Device successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Device
+
+- **URL:** `/api/devices/<int:device_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated device details.
+- **Response:**
+  - `200 OK`: Device successfully updated.
+  - `404 Not Found`: Device with the given ID not found.
+
+#### Delete a Device
+
+- **URL:** `/api/devices/<int:device_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Device successfully deleted.
+  - `404 Not Found`: Device with the given ID not found.
+
+### Final
+
+#### Get All Final Records
+
+- **URL:** `/api/final`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `game_id` (optional): Filter by game ID.
+  - `tag_id` (optional): Filter by tag ID.
+  - `devices_id` (optional): Filter by devices ID.
+  - `engine_id` (optional): Filter by engine ID.
+  - `review_id` (optional): Filter by review ID.
+- **Response:**
+  - `200 OK`: List of final records in JSON format.
+
+#### Get Details of a Specific Final Record
+
+- **URL:** `/api/final/<int:final_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the final record in JSON format.
+  - `404 Not Found`: Final record with the given ID not found.
+
+#### Insert a New Final Record
+
+- **URL:** `/api/final`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with final record details.
+- **Response:**
+  - `201 Created`: Final record successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Final Record
+
+- **URL:** `/api/final/<int:final_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated final record details.
+- **Response:**
+  - `200 OK`: Final record successfully updated.
+  - `404 Not Found`: Final record with the given ID not found.
+
+#### Delete a Final Record
+
+- **URL:** `/api/final/<int:final_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Final record successfully deleted.
+  - `404 Not Found`: Final record with the given ID not found.
+
+## Example Python Code
+
+Here is an example Python script that demonstrates how to make requests to the API:  
+   
+### Get all game names:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+# Example: Get all games
+print("Get all game names:")
+#Get the data from the API
+response = requests.get(f"{base_url}/games")
+#Convert the data into json format
+printable = response.json()
+#Loop through the created list and print the Game_name column 
+for game in printable:
+    print(game['Game_name'])
+```
+
+### Get all tag names:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+# Example: Get all tags
+print("Get all tag names:")
+response = requests.get(f"{base_url}/tags")
+printable = response.json()
+
+# Loop through the created list and print the Tag_name column
+for tag in printable:
+    print(tag['Tag_name'])
+```
+
+### Get all review titles:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+# Example: Get all review titles
+print("Get all review titles:")
+response = requests.get(f"{base_url}/reviews")
+printable = response.json()
+
+# Loop through the created list and print the Review_title column
+for review in printable:
+    print(review['Review_title'])
+```
+
+### Get all developer names:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+# Example: Get all developer names
+print("Get all developer names:")
+response = requests.get(f"{base_url}/developers")
+printable = response.json()
+
+# Loop through the created list and print the Developer_name column
+for developer in printable:
+    print(developer['Developer_name'])
+```
+
+### Get all publisher names:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+# Example: Get all publisher names
+print("Get all publisher names:")
+response = requests.get(f"{base_url}/publishers")
+printable = response.json()
+
+# Loop through the created list and print the Publisher_name column
+for publisher in printable:
+    print(publisher['Publisher_name'])
+```
+
+### Get all engine names:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+# Example: Get all engine names
+print("Get all engine names:")
+response = requests.get(f"{base_url}/engines")
+printable = response.json()
+
+# Loop through the created list and print the Engine_Name column
+for engine in printable:
+    print(engine['Engine_Name'])
+```
+
+### Get all device names:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+# Example: Get all device names
+print("Get all device names:")
+response = requests.get(f"{base_url}/devices")
+printable = response.json()
+
+# Loop through the created list and print the Devices_Name column
+for device in printable:
+    print(device['Devices_Name'])
+```
+
+### Get all Final game names:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+# Example: Get all final game names
+print("Get all final game names:")
+response = requests.get(f"{base_url}/final")
+printable = response.json()
+
+# Loop through the created list and print the Final_GameName column
+for final_record in printable:
+    print(final_record['Final_GameName'])
+```
+
+### Get all of the details for a specific game: 
+```{python}
+# Example: Get details of a specific game
+print("\nGet the details for a specific game:")
+game_id = 1
+response = requests.get(f"{base_url}/games/{game_id}")
+
+# Print status code and response content for the second request
+print("Response Content:", response.text)
+```
+
+### Get all ID's associated with a specific game
+```{python}
+# Example: Get all IDs associated with a specific game
+game_id = 1
+response = requests.get(f"{base_url}/game_ids/{game_id}")
+result = response.json()
+
+# Print each type of ID with its label
+print(f"Game_ID: {game_id}")
+for label, ids in result.items():
+    print(f"{label}: {ids}")
+``` 
+
+### How to use Insert, Update, and Delete
+```{python}
+import requests
+
+# API key for authorization for Insert, Update, and Delete requests
+api_key = "123456789"
+
+# Will be using the games table for this example
+base_url = "http://127.0.0.1:5000/api/games"
+
+# Example: Get a game by name (assuming it doesn't exist initially)
+game_name_to_find = "example game"
+response = requests.get(f"{base_url}?name={game_name_to_find}")
+
+inserted_game_id = 1
+if len(response.text) == 3:
+    print(f"Game with name '{game_name_to_find}' not found. Inserting...")
+
+    # Example: Insert a new game
+    new_game_data = {
+        "Game_name": game_name_to_find,
+        "Game_age_rating": "M",
+        "Game_release_date": "2016-08-04",
+        "Game_DLC": "Expansion 1",
+        "Game_ID": 95
+    }
+    print("Created game details", new_game_data)
+    headers = {"X-API-Key": api_key}
+    response = requests.post(base_url, json=new_game_data, headers=headers)
+    if response.status_code == 201:  # Assuming a successful creation returns status code 201
+      response = requests.get(f"{base_url}?name={game_name_to_find}")
+      inserted_game_id = response.json()[0]["Game_ID"]
+      print(f"Game inserted with ID: {inserted_game_id}")
+    else:
+      print(f"Failed to insert game. Status Code: {response.status_code}")
+      print(response.text)
+
+# Example: Update the game
+updated_game_data = {
+    "Game_name": game_name_to_find,
+    "Game_age_rating": "T",
+    "Game_DLC": "Updated Expansion",
+    "Game_release_date": "2016-08-04",
+    "Game_ID": inserted_game_id
+}
+headers = {"X-API-Key": api_key}
+response = requests.put(f"{base_url}/{inserted_game_id}", json=updated_game_data, headers=headers)
+print(f"Game with ID {inserted_game_id} updated.")
+
+# Example: Get the updated game details
+response = requests.get(f"{base_url}/{inserted_game_id}")
+if response.status_code == 200:
+    updated_game_details = response.json()
+    print("Updated Game Details:", updated_game_details)
+
+# Example: Delete the game
+headers = {"X-API-Key": api_key}
+response = requests.delete(f"{base_url}/{inserted_game_id}", headers=headers)
+print(f"Game with ID {inserted_game_id} deleted.")
+
+# Example: Try to get the deleted game (should return 404)
+response = requests.get(f"{base_url}?name={game_name_to_find}")
+if len(response.text) == 3:
+    print(f"Game with ID {inserted_game_id} not found. Deletion successful.")
+
+```

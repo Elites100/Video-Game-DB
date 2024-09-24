@@ -1,0 +1,77 @@
+---
+title: Crow's Foot Diagram for our Game Database
+date: 10/13/23
+author: Boden Kahn, Kevin Phung, Christ Le
+format:
+    html: 
+      toc: true
+      embed-resources: true
+    gfm:
+        mermaid-format: png
+        
+---
+
+```{mermaid}
+erDiagram
+
+Final }|--|{ Game: made
+Final }|--|{ Tag: has
+Final }|--|{ Devices: support
+Final }|--|{ Developer: create
+Final }|--|{ Engine: used
+Final }|--|{ Publisher: publish
+Final }|--|{ Review: review
+
+
+Final{
+ int GameID
+ string GameName
+ int TagID
+ int DeviceID
+ int EngineID
+ int DevloperID
+ int PublisherID
+ int ReviewID
+}
+
+Game{
+  int GameID
+  string GameName
+  string GameAgeRating
+  date GameReleaseDate
+  string GameDLC
+}
+
+Tag{
+  int TagID
+  string TagName
+}
+
+Devices{
+  int DeviceID
+  string DeviceName
+  string DeviceType
+}
+
+Engine{
+  int EngineID
+  string EngineName
+}
+
+Developer{
+  int DeveloperID
+  string DeveloperName
+}
+
+Publisher{
+  int PublisherID
+  string PublisherName
+}
+
+Review{
+  int ReviewID
+  string ReviewTitle
+  string ReviewName
+  string ReviewComment
+}
+```

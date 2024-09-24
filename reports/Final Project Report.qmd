@@ -1,0 +1,1039 @@
+---
+title: Final Project Report 
+author: Christ Le, Kevin Phung, Boden Kahn
+date: last-modified
+format:
+    html:
+        theme: cosmo
+        toc: true
+        embed-resources: true
+        code-copy: true
+---
+
+### Project Overview
+
+A Database that stores and accumulate informations on Different Videogames, the database will allow for users to review and rate games, aswell as allow publisher to upload and information for their games. This database is designed to allow for gamers and other enthusiast to browse through a database without any outside biases such as game companies and game journalists.
+
+**Pitch Video:** <a href="https://vcu.mediaspace.kaltura.com/media/CMSC508/1_ciedaq7p" target="_blank">Pitch</a>
+
+**Design Video:** <a href="https://vcu.mediaspace.kaltura.com/media/CMSC508+Deliverable+4/1_pvmfp2hh" target="_blank">Design</a>
+
+**Report Video:** <a href="https://vcu.mediaspace.kaltura.com/media/CMSC508+Final+PT2/1_0fxhqyor" target="_blank">Final Report</a>
+
+**Github Repository:**  <a href="https://github.com/cmsc-vcu/cmsc508-fa2023-prj-videogamedb-group50" target="_blank">Github</a>
+
+**Project Members:**
+
+Christ Le   - CS Major
+
+Kevin Phung - CS Major
+
+Boden Kahn - CS Major
+
+### Project Description
+The world of video games is a vast and ever-expanding realm that encompasses a diverse range of genres, platforms, and experiences. While major video game releases often receive extensive coverage and reviews in the media, there exists a substantial number of games that remain relatively untouched by mainstream attention. These lesser-known games may offer unique and engaging experiences that go unnoticed by potential players. This problem domain seeks to address the need for a comprehensive database and tool that can provide valuable information about these underrepresented video games, allowing consumers to make informed decisions when choosing which games to play.
+
+The development of a database for lesser-known video games is necessary to bridge the information gap (limited media coverage), empower gamers to make well-informed choices, support indie developers, and promote diversity in the gaming industry. This database will serve as a valuable tool for gamers seeking to explore the rich and diverse world of video games beyond what traditional media typically covers
+
+The video game database is primarily developed to benefit gamers and potential gamers. It serves as a tool for them to make informed choices, discover new gaming experiences, and navigate the diverse world of video games with confidence. 
+The perspective is one of empowerment and inclusivity, where it empowers gamers and enthusiasts to take control of their gaming choices and aims to adjust access to information about video games
+
+Gamers will primarily engage as active users, leveraging its resources to make informed decisions about their gaming choices. They will utilize the database to explore and search for games based on specific genres, platforms, or tailored criteria, ensuring a personalized gaming experience. Moreover, they will rely on the database to access comprehensive reviews and insights, allowing them to evaluate gameplay, graphics, and overall quality before committing to a specific game. By actively contributing their own reviews and recommendations, gamers will actively shape the database's content, fostering a dynamic and interactive gaming community.
+
+Enthusiasts and contributors, driven by their passion for gaming, will utilize the database as a platform to express their unique insights and experiences. Their involvement will revolve around crafting and submitting comprehensive game reviews, sharing personal gaming strategies, and curating curated lists of their favorite games within specific genres, thus actively contributing to the growth and richness of the database's content. Furthermore, their active participation in gaming-related discussions and forums will foster a vibrant community, nurturing a space for exchange and collaboration among fellow gaming enthusiasts.
+
+### Database Design 
+
+**Conceptual design in <a href="https://github.com/cmsc-vcu/cmsc508-fa2023-prj-videogamedb-group50/blob/main/Database%20Design/ER%20Diagram/GameDBChen.qmd" target="_blank">Chen Notation</a>**
+```{dot}
+graph ER {
+  layout=neato;
+  scale=1.0;
+  node [shape=box]; Final, Game, Tag, Engine, Devices, Review, Developer, Publisher;
+  node [shape=ellipse];  Final_ID, Final_GameName, Game_ID, Game_Name, Game_Age_Rating, Game_Release_Date, Game_DLC, Tag_ID, Tag_Name, Engine_ID, Engine_Name, Devices_ID, Devices_Name, Devices_Type, Review_ID, Review_Title, Review_ReviewerName, Review_Comment, Developer_ID, Developer_Name, Publisher_ID, Publisher_Name;
+  node [shape=diamond,style=filled,color=lightgrey]; has
+  
+  Final -- has [label = "N", len=5.00]
+  has -- Game [label = "N", len=3.00]
+  has -- Tag [label = "N", len=3.00]
+  has -- Engine [label = "N", len=3.00]
+  has -- Devices [label = "N", len=3.00]
+  has -- Review [label = "N", len=3.00]
+  has -- Developer [label = "N", len=3.00]
+  has -- Publisher [label = "N", len=3.00]
+
+  Final -- Final_ID [len=2.00]
+  Final -- Final_GameName [len=2.00]
+
+  Game -- Game_ID [len=2.00]
+  Game -- Game_Name [len=2.00]
+  Game -- Game_Age_Rating [len=2.00]
+  Game -- Game_Release_Date [len=2.00]
+  Game -- Game_DLC [len=2.00]
+
+  Tag -- Tag_ID [len=2.00]
+  Tag -- Tag_Name [len=2.00]
+
+  Engine -- Engine_ID [len=2.00]
+  Engine -- Engine_Name[len=2.00]
+
+  Devices -- Devices_ID [len=2.00]
+  Devices -- Devices_Name [len=2.00]
+  Devices -- Devices_Type[len=2.00]
+
+  Review -- Review_ID [len=2.00]
+  Review -- Review_Title [len=2.00]
+  Review -- Review_ReviewerName [len=2.00]
+  Review -- Review_Comment [len=2.00]
+
+  Developer -- Developer_ID [len=2.00]
+  Developer -- Developer_Name [len=2.00]
+
+  Publisher -- Publisher_ID [len=2.00]
+  Publisher -- Publisher_Name [len=2.00]
+
+}
+```
+
+**Conceptual design in <a href="https://github.com/cmsc-vcu/cmsc508-fa2023-prj-videogamedb-group50/blob/main/Database%20Design/ER%20Diagram/CrowsFootDiagram.qmd" target="_blank">Crow's Foot Notation</a>**
+``` {mermaid}
+erDiagram
+Final }|--|{ Game: made
+Final }|--|{ Tag: has
+Final }|--|{ Devices: support
+Final }|--|{ Developer: create
+Final }|--|{ Engine: used
+Final }|--|{ Publisher: publish
+Final }|--|{ Review: review
+
+
+Final{
+ int GameID
+ string GameName
+ int TagID
+ int DeviceID
+ int EngineID
+ int DevloperID
+ int PublisherID
+ int ReviewID
+}
+
+Game{
+  int GameID
+  string GameName
+  string GameAgeRating
+  date GameReleaseDate
+  string GameDLC
+}
+
+Tag{
+  int TagID
+  string TagName
+}
+
+Devices{
+  int DeviceID
+  string DeviceName
+  string DeviceType
+}
+
+Engine{
+  int EngineID
+  string EngineName
+}
+
+Developer{
+  int DeveloperID
+  string DeveloperName
+}
+
+Publisher{
+  int PublisherID
+  string PublisherName
+}
+
+Review{
+  int ReviewID
+  string ReviewTitle
+  string ReviewName
+  string ReviewComment
+}
+   }
+```
+
+- [Game Relations Schema](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-videogamedb-group50/blob/main/Database%20Design/Relational%20Schema.qmd)
+### Relation Schema
+- **Game Relations**
+    - Attributes
+      - GameID
+        - Type
+          - Integer
+        - Domain
+          - Integers
+
+      - GameName
+          - Type
+            - String
+          - Domain
+            - String 
+
+      - AgeRating
+        - Type
+          - String
+        - Domain
+          - E, E10+, T, M, A, 3, 7 ,12, 16, 18
+
+      - ReleaseDate
+        - Type
+          - Integer
+        - Domain
+          - Calender Dates
+
+      - DLC
+        - Type
+          - String
+        - Domain
+          - String
+  
+    - Primary Key
+      - GameID
+    - Foriegn Key
+    - Other Constraints
+  
+- **Tag Relations**
+  - TagID
+        - Type
+          - Integer
+        - Domain
+          - Integers
+
+      - TagName
+        - Type
+          - String
+        - Domain
+          - Single Player, Multiplayer, Cross Platform, FPS,Horror, Simulator, Action, Adventure, Role-Playing, Sports/Racing etc
+
+   - Primary Key
+      - TagID
+    - Other Constraints
+
+- **Publisher Relations**
+    - Attributes
+      - PublisherID
+        - Type
+          - Integer
+        - Domain
+          - Integers
+
+      - PublisherName
+        - Type
+          - String
+        - Domain
+          - String
+  
+    - Primary Key
+      - PublisherID
+    - Foriegn Key
+    - Other Constraints
+
+- **Engine Relations**
+    - Attributes
+      - DeveloperID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+
+      - Developer
+        - Type
+          - String
+        - Domain
+          - String
+
+    - Constraint
+  
+    - Primary Key
+      - DeveloperID
+    - Foriegn Key
+    - Other Constraints
+
+
+- **Review Relations**
+    - Attributes
+      - ReviewID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+
+      - ReviewerName
+        - Type
+          - String
+        - Domain
+          - String
+
+      - Comment
+        - Type
+          - String
+        - Domain
+          - String
+
+      - Review_Title
+        - Type
+          - String
+        - Domain
+          - String
+
+    - Primary Key
+      - ReviewID
+    - Foriegn Key
+    - Other Constraints
+
+- **Device Relations**
+    - Attribute
+      - DeviceID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+
+      - DeviceName
+        - Type
+          - String
+        - Domain
+          - Xbox, PlayStation, Nintendo, PC, etc
+    - Primary Key
+      - DeviceID
+    - Foriegn Key
+    - Other Constraints
+
+- **Engine Relations**
+    - Attribute
+      - EngineID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+        
+      - EngineName
+        - Type
+          - String
+        - Domain
+          - Unity, Unreal, Frost, Etc
+
+    - Constraint
+  
+    - Primary Key
+      - EngineID
+    - Foriegn Key
+    - Other Constraint
+
+- **Final Relations**
+    - Attribute
+      - FinalID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+        
+      - Final_GameName
+        - Type
+          - String
+        - Domain
+          - String
+
+      - GameID
+        - Type
+          - Integer
+        - Domain
+          - Integers
+
+      - TagID
+        - Type
+          - Integer
+        - Domain
+          - Integers
+
+      - EngineID
+        - Type
+          - Integer
+        - Domain
+          - Integer 
+      
+      - DeviceID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+
+      - ReviewID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+
+      - DeveloperID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+
+      - PublisherID
+        - Type
+          - Integer
+        - Domain
+          - Integers
+  
+    - Primary Key
+      - FinalID
+    - Foriegn Key
+      - GameID
+      - TagID
+      - DeviceID
+      - EngineID
+      - PublisherID
+      - DeveloperID
+      - ReviewID
+    - Other Constraint
+
+## Implementation
+
+**DDL**
+    
+The Data Definition Langauge Code, called [GameDB-ddl.sql](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-videogamedb-group50/blob/main/src/GameDB-ddl.sql), within the source folder, was created using mySQL, In which we designed the tables that will be uploaded to the database using the Relation Schema previously designed. 
+
+**DML**
+
+The Data Manipulation Lnagauge Code, called [GAMEDN-dml.sql](https://github.com/cmsc-vcu/cmsc508-fa2023-prj-videogamedb-group50/blob/main/src/GameDN-dml.sql) within the source folder, was created using mySQL, in which we create a file in which will be used to insert, delete, and update the data within the database we previously created.
+
+
+**Data**
+
+### Get all game records:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+print("Get all game names:")
+response = requests.get(f"{base_url}/games")
+printable = response.json()
+
+for game in printable:
+    print(game)
+```
+
+### Get all tag records:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+print("Get all tag names:")
+response = requests.get(f"{base_url}/tags")
+printable = response.json()
+
+for tag in printable:
+    print(tag)
+```
+
+### Get all review records:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+print("Get all review titles:")
+response = requests.get(f"{base_url}/reviews")
+printable = response.json()
+
+for review in printable:
+    print(review)
+```
+
+### Get all developer records:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+print("Get all developer names:")
+response = requests.get(f"{base_url}/developers")
+printable = response.json()
+
+for developer in printable:
+    print(developer)
+```
+
+### Get all publisher records:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+print("Get all publisher names:")
+response = requests.get(f"{base_url}/publishers")
+printable = response.json()
+
+for publisher in printable:
+    print(publisher)
+```
+
+### Get all engine records:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+print("Get all engine names:")
+response = requests.get(f"{base_url}/engines")
+printable = response.json()
+
+for engine in printable:
+    print(engine)
+```
+
+### Get all device records:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+print("Get all device names:")
+response = requests.get(f"{base_url}/devices")
+printable = response.json()
+
+for device in printable:
+    print(device)
+```
+
+### Get all final records:
+```{python}
+import requests
+
+base_url = "http://127.0.0.1:5000/api"
+
+print("Get all final game names:")
+response = requests.get(f"{base_url}/final")
+printable = response.json()
+
+for final_record in printable:
+    print(final_record)
+```
+
+**API Design**
+
+## Introduction
+
+The Video Game Database API is designed to provide access to information about video games, including details about games, developers, publishers, reviews, tags, and more. The Final table is the result of joining all of the information in the other tables to provide one table to access all of the data. This documentation outlines the available endpoints, request methods, and expected responses, as well as examples to start from.
+
+Base URL: `http://127.0.0.1:5000/api`
+
+## Authentication
+
+Authentication is required for certain operations. An API key must be included in the request headers to access these functionalities.
+
+### API Key
+
+Include the API key in the headers of your request as follows:
+
+```{plaintext}
+Headers:
+  Content-Type: application/json
+  API-Key: 123456789
+```
+
+## Error Handling
+
+The API returns standard HTTP status codes to indicate the success or failure of a request. In case of an error, additional details will be provided in the response body.
+
+- `200 OK`: The request was successful.
+- `201 Created`: The resource was successfully created.
+- `204 No Content`: The request was successful, but there is no content to return.
+- `400 Bad Request`: The request was invalid or malformed.
+- `401 Unauthorized`: Authentication is required or credentials are invalid.
+- `404 Not Found`: The requested resource does not exist.
+- `500 Internal Server Error`: An unexpected error occurred on the server.
+
+## Available Endpoints
+
+### Games
+
+#### Get All Games
+
+- **URL:** `/api/games`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name`: Filter games by name (optional)
+- **Response:**
+  - `200 OK`: List of games in JSON format.
+
+#### Get a Specific Game
+
+- **URL:** `/api/games/<int:game_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the specified game in JSON format.
+  - `404 Not Found`: Game with the given ID not found.
+
+#### Get All IDs Associated with a Game
+
+- **URL:** `/api/games/ids/<int:game_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: List of all IDs associated with the specified game in JSON format.
+  - `404 Not Found`: Game with the given ID not found.
+
+#### Insert a New Game
+- **URL:** `/api/games`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with game details.
+- **Response:**
+  - `201 Created`: Game successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Game
+- **URL:** `/api/games/<int:game_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated game details.
+- **Response:**
+  - `200 OK`: Game successfully updated.
+  - `404 Not Found`: Game with the given ID not found.
+
+#### Delete a Game
+- **URL:** `/api/games/<int:game_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Game successfully deleted.
+  - `404 Not Found`: Game with the given ID not found.
+
+### Tags
+
+#### Get All Tags
+
+- **URL:** `/api/tags`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name`: Filter tags by name (optional)
+- **Response:**
+  - `200 OK`: List of tags in JSON format.
+
+#### Get a Specific Tag
+
+- **URL:** `/api/tags/<int:tag_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the specified tag in JSON format.
+  - `404 Not Found`: Tag with the given ID not found. 
+
+#### Insert a New Tag
+
+- **URL:** `/api/tags`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with tag details.
+- **Response:**
+  - `201 Created`: Tag successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Tag
+
+- **URL:** `/api/tags/<int:tag_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated tag details.
+- **Response:**
+  - `200 OK`: Tag successfully updated.
+  - `404 Not Found`: Tag with the given ID not found.
+
+#### Delete a Tag
+
+- **URL:** `/api/tags/<int:tag_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Tag successfully deleted.
+  - `404 Not Found`: Tag with the given ID not found.
+
+### Reviews
+
+#### Get All Reviews
+
+- **URL:** `/api/reviews`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `reviewer_name`: Filter reviews by reviewer name (optional)
+  - `comment`: Filter reviews by comment (optional) 
+  - `title`: Filter reviews by title (optional) 
+- **Response:**
+  - `200 OK`: List of reviews in JSON format.
+
+#### Get a Specific Review
+
+- **URL:** `/api/reviews/<int:review_id>`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name`: Filter games by name (optional)
+- **Response:**
+  - `200 OK`: Details of the specified review in JSON format.
+  - `404 Not Found`: Review with the given ID not found.
+
+#### Insert a New Review
+
+- **URL:** `/api/reviews`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with review details.
+- **Response:**
+  - `201 Created`: Review successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Review
+
+- **URL:** `/api/reviews/<int:review_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated review details.
+- **Response:**
+  - `200 OK`: Review successfully updated.
+  - `404 Not Found`: Review with the given ID not found.
+
+#### Delete a Review
+
+- **URL:** `/api/reviews/<int:review_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Review successfully deleted.
+  - `404 Not Found`: Review with the given ID not found.
+
+### Developers
+
+#### Get All Developers
+
+- **URL:** `/api/developers`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name`: Filter developers by name (optional)
+- **Response:**
+  - `200 OK`: List of developers in JSON format.
+
+#### Get a Specific Developer
+
+- **URL:** `/api/developers/<int:developer_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the specified developer in JSON format.
+  - `404 Not Found`: Developer with the given ID not found.
+
+#### Insert a New Developer
+
+- **URL:** `/api/developers`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with developer details.
+- **Response:**
+  - `201 Created`: Developer successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Developer
+
+- **URL:** `/api/developers/<int:developer_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated developer details.
+- **Response:**
+  - `200 OK`: Developer successfully updated.
+  - `404 Not Found`: Developer with the given ID not found.
+
+#### Delete a Developer
+
+- **URL:** `/api/developers/<int:developer_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Developer successfully deleted.
+  - `404 Not Found`: Developer with the given ID not found.
+
+### Publishers
+
+#### Get All Publishers
+
+- **URL:** `/api/publishers`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name`: Filter publishers by name (optional)
+- **Response:**
+  - `200 OK`: List of publishers in JSON format.
+
+#### Get a Specific Publisher
+
+- **URL:** `/api/publishers/<int:publisher_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the specified publisher in JSON format.
+  - `404 Not Found`: Publisher with the given ID not found.
+
+#### Insert a New Publisher
+
+- **URL:** `/api/publishers`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with publisher details.
+- **Response:**
+  - `201 Created`: Publisher successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Publisher
+
+- **URL:** `/api/publishers/<int:publisher_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated publisher details.
+- **Response:**
+  - `200 OK`: Publisher successfully updated.
+  - `404 Not Found`: Publisher with the given ID not found.
+
+#### Delete a Publisher
+
+- **URL:** `/api/publishers/<int:publisher_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Publisher successfully deleted.
+  - `404 Not Found`: Publisher with the given ID not found.
+
+### Engines
+
+#### Get All Engines
+
+- **URL:** `/api/engines`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name` (optional): Filter by engine name.
+- **Response:**
+  - `200 OK`: List of engines in JSON format.
+
+#### Get a Specific Engine
+
+- **URL:** `/api/engines/<int:engine_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the specified engine in JSON format.
+  - `404 Not Found`: Engine with the given ID not found.
+
+#### Insert a New Engine
+
+- **URL:** `/api/engines`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with engine details.
+- **Response:**
+  - `201 Created`: Engine successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update an Engine
+
+- **URL:** `/api/engines/<int:engine_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated engine details.
+- **Response:**
+  - `200 OK`: Engine successfully updated.
+  - `404 Not Found`: Engine with the given ID not found.
+
+#### Delete an Engine
+
+- **URL:** `/api/engines/<int:engine_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Engine successfully deleted.
+  - `404 Not Found`: Engine with the given ID not found.
+
+### Devices
+
+#### Get All Devices
+
+- **URL:** `/api/devices`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `name` (optional): Filter by device name.
+- **Response:**
+  - `200 OK`: List of devices in JSON format.
+
+#### Get a Specific Device
+
+- **URL:** `/api/devices/<int:device_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the specified device in JSON format.
+  - `404 Not Found`: Device with the given ID not found.
+
+#### Insert a New Device
+
+- **URL:** `/api/devices`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with device details.
+- **Response:**
+  - `201 Created`: Device successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Device
+
+- **URL:** `/api/devices/<int:device_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated device details.
+- **Response:**
+  - `200 OK`: Device successfully updated.
+  - `404 Not Found`: Device with the given ID not found.
+
+#### Delete a Device
+
+- **URL:** `/api/devices/<int:device_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Device successfully deleted.
+  - `404 Not Found`: Device with the given ID not found.
+
+### Final
+
+#### Get All Final Records
+
+- **URL:** `/api/final`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `game_id` (optional): Filter by game ID.
+  - `tag_id` (optional): Filter by tag ID.
+  - `devices_id` (optional): Filter by devices ID.
+  - `engine_id` (optional): Filter by engine ID.
+  - `review_id` (optional): Filter by review ID.
+- **Response:**
+  - `200 OK`: List of final records in JSON format.
+
+#### Get Details of a Specific Final Record
+
+- **URL:** `/api/final/<int:final_id>`
+- **Method:** `GET`
+- **Response:**
+  - `200 OK`: Details of the final record in JSON format.
+  - `404 Not Found`: Final record with the given ID not found.
+
+#### Insert a New Final Record
+
+- **URL:** `/api/final`
+- **Method:** `POST`
+- **Request:**
+  - JSON payload with final record details.
+- **Response:**
+  - `201 Created`: Final record successfully created.
+  - `400 Bad Request`: Invalid or malformed request.
+
+#### Update a Final Record
+
+- **URL:** `/api/final/<int:final_id>`
+- **Method:** `PUT`
+- **Request:**
+  - JSON payload with updated final record details.
+- **Response:**
+  - `200 OK`: Final record successfully updated.
+  - `404 Not Found`: Final record with the given ID not found.
+
+#### Delete a Final Record
+
+- **URL:** `/api/final/<int:final_id>`
+- **Method:** `DELETE`
+- **Response:**
+  - `200 OK`: Final record successfully deleted.
+  - `404 Not Found`: Final record with the given ID not found.
+
+**API Implementation**
+
+### Implementation of Security, Query, Filter, Insert, Update, and Delete
+```{python}
+import requests
+
+# API key for authorization for Insert, Update, and Delete requests
+api_key = "123456789"
+
+# Will be using the games table for this example
+base_url = "http://127.0.0.1:5000/api/games"
+
+# Example: Get a game by name (assuming it doesn't exist initially)
+game_name_to_find = "example game"
+response = requests.get(f"{base_url}?name={game_name_to_find}")
+
+inserted_game_id = 1
+if len(response.text) == 3:
+    print(f"Game with name '{game_name_to_find}' not found. Inserting...")
+
+    # Example: Insert a new game
+    new_game_data = {
+        "Game_name": game_name_to_find,
+        "Game_age_rating": "M",
+        "Game_release_date": "2016-08-04",
+        "Game_DLC": "Expansion 1",
+        "Game_ID": 95
+    }
+    print("Created game details", new_game_data)
+    headers = {"X-API-Key": api_key}
+    response = requests.post(base_url, json=new_game_data, headers=headers)
+    if response.status_code == 201:  # Assuming a successful creation returns status code 201
+      response = requests.get(f"{base_url}?name={game_name_to_find}")
+      inserted_game_id = response.json()[0]["Game_ID"]
+      print(f"Game inserted with ID: {inserted_game_id}")
+    else:
+      print(f"Failed to insert game. Status Code: {response.status_code}")
+      print(response.text)
+
+# Example: Update the game
+updated_game_data = {
+    "Game_name": game_name_to_find,
+    "Game_age_rating": "T",
+    "Game_DLC": "Updated Expansion",
+    "Game_release_date": "2016-08-04",
+    "Game_ID": inserted_game_id
+}
+headers = {"X-API-Key": api_key}
+response = requests.put(f"{base_url}/{inserted_game_id}", json=updated_game_data, headers=headers)
+print(f"Game with ID {inserted_game_id} updated.")
+
+# Example: Get the updated game details
+response = requests.get(f"{base_url}/{inserted_game_id}")
+if response.status_code == 200:
+    updated_game_details = response.json()
+    print("Updated Game Details:", updated_game_details)
+
+# Example: Delete the game
+headers = {"X-API-Key": api_key}
+response = requests.delete(f"{base_url}/{inserted_game_id}", headers=headers)
+print(f"Game with ID {inserted_game_id} deleted.")
+
+# Example: Try to get the deleted game (should return 404)
+response = requests.get(f"{base_url}?name={game_name_to_find}")
+if len(response.text) == 3:
+    print(f"Game with ID {inserted_game_id} not found. Deletion successful.")
+
+```
+
+## Reflections
+
+Reflecting upon the steps and decision that was made throughout the project is best describes in two distinct stages the Design Phase and the Implementation Phase.
+
+**Design Phase**
+
+The Design Phase of the project was the quickest but also the reason for many future difficulties that we faced during the implementation phase. In the Design Phase we were naive and did not think quite far ahead that we initally believed, this is due to the nature of us requiring to back track and redesign most of the Relation Character Schema than from what we initially design, narrowing it down and simplifying it to better suit the format in which we were attempting to implement it.
+
+**Implementation Phase**
+
+During the Implementation phase was overall difficulty due to the nature of back-tracking to redesign how the project was structured, however once that was completely progress towards the end the project was relatively smooth, other than minor bumps along the roads, due to lack on knowledge or understanding the SQL, databases, and APIs, we move along and learned what we need to finish the project.
+
+**Overview**
+
+Overviewing the project as a whole we believe we have learned alot from this project, such as learning to lay down a better foundational design before progressing in order to not stumble as we previously have and furthermore we learned to better communicate and discuss with one another regarding our thoughts process on the project and many more. Overall we believe we didnt achieve everything that we wished to accomplish with the project, primarily due to time restraint and lack of knowledge, however we believe that we create a good foundation for future additons, however we wish we understood the scope of our project earlier on, due to the amount of data required to create such a database. 
+
+**Future Considerations**
+
+Finally, If we were to have another opportunity within the future, We stated that we would begin creating a security method that allow for selected user to have certain access to the API, which allows for them to insert, delete, and update the database, with approval. 
+
+
+

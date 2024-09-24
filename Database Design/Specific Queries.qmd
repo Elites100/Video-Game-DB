@@ -1,0 +1,59 @@
+1. What are the Name and ID of the Game.
+    - π(Game_Name,Game_ID)(Game_Information)
+
+2. Display the Tags for a Video Game.
+    - σ(Tags)(Game_Information)
+
+3. Display a List of Developers.
+    - π Developer_Name(Creator_Information)
+
+4. Display the Top Studios with the Most Games.
+    - π Developer_Name, count(Game) (Creator_Information ⨝ Game)
+
+5. Find reviews written by reviewer XYZ123
+    - π Review(σ Reviewer_ID='XYZ123'(Review_Information))
+
+6. Find games names with a specific age rating
+    - π Game_Name (σ AgeRating='T'(Game_Information))
+
+7. Retrieve all of Release Dates 
+    - π(Release_Date)(Game_Information)
+
+8. Find all 5 star games
+    - σ Stars=5(Review_Information)
+
+9. Sort by multiplayer games
+    - π Tag (σ Tag_Name = 'Multiplayer')(Game_Information)
+
+10. List the games that run on  "Unity."
+    - π Game_Name(σ Engine_Name='Unity'(Game_Information, System_Information))
+
+11. Find the names of all game engines.
+    - π Engine_Name(System_Information)
+
+12. Retrieve the games compatible with PS5
+    - π Game_Name(σ Device_Name='PS5'(Game_Information, System_Information))
+
+13. Figure out which devices are compatible with Forza Horizon 5
+    - π Device_Name(σ Game_Name='Forza Horizon 5'(Game_Information, System_Information))
+
+14. Find out if anyone is leaving comments and reviews together
+    - σ Reviewer_ID = Commentor_ID (Review_Information)
+
+15. Which publishers have published adventure games
+    - π Publisher_Name (σ Tag_Name = 'Adventure' (Game_Information ⨝ Creator_Information))
+
+16. List games reviewed by a specific reviewer ID
+    - π Game_Name (σ ReviewerID = 'ABC123' (Review_Information ⨝ Game_Information))
+
+17. List of games released in 2022
+    - π Game_Name (σ Release_Date >= 20220101 ∧ Release_Date <= 20221231 (Game_Information))
+ 
+18. Find out the names of reviewers who gave a 5 star rating to Ubisoft games
+    - π Reviewer_Name (σ Developer_Name = 'Ubisoft' ∧ Stars = '5' (Creator_Information ⨝ Game_Information ⨝ Review_Information))
+
+19. List of games published by EA with an E age rating
+    - π Game_Name (σ Publisher_Name = 'EA' ∧ Age_Rating = 'E' (Game_Information ⨝ Creator_Information))
+
+20. Find out which games a specific commentor has commented on
+    - π Game_Name (σ Commentor_ID = '123ABC' (Review_Information ⨝ Game_Information))

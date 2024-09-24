@@ -1,0 +1,52 @@
+1. Game Relations:
+Attributes: GameID, GameName, TagID, TagName, AgeRating, ReleaseDate, DLC, Platforms
+
+Functional Dependencies:
+
+GameID → GameName, TagID, AgeRating, ReleaseDate, DLC, Platforms
+TagID → TagName
+
+Normalization to BCNF for Game Relations:
+Game Table: (GameID, GameName, AgeRating, ReleaseDate, DLC, Platforms)
+Tag Table: (TagID, TagName)
+
+
+2. Creator Relations:
+Attributes: PublisherID, PublisherName, DeveloperID, DeveloperName
+
+Functional Dependencies:
+
+DeveloperID → DeveloperName
+PublisherID → PublisherName
+
+Normalization to BCNF for Creator Relations:
+Developer Table: (DeveloperID, DeveloperName)
+Publisher Table: (PublisherID, PublisherName)
+
+3. Review Relations:
+Attributes: ReviewID, Review, ReviewerID, ReviewerName, CommentID, Comment, CommentorID, CommentorName, Stars
+
+Functional Dependencies:
+
+ReviewID → Review, ReviewerID, CommentID, CommentorID, Stars
+ReviewerID → ReviewerName
+CommentorID → CommentorName
+
+Normalization to BCNF for Review Relations:
+Review Table: (ReviewID, Review, ReviewerID, CommentID, CommentorID, Stars)
+Reviewer Table: (ReviewerID, ReviewerName)
+Commentor Table: (CommentorID, CommentorName)
+
+4. System
+Attributes: DeviceID, DeviceName, SystemID, SystemName, EngineID, EngineName
+
+Functional Dependencies:
+
+DeviceID → DeviceName
+SystemID → SystemName
+EngineID → EngineName
+
+Normalization to BCNF for System Relations:
+Device Table: (DeviceID, DeviceName)
+System Table: (SystemID, SystemName)
+Engine Table: (EngineID, EngineName)

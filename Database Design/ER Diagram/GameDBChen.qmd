@@ -1,0 +1,63 @@
+---
+title: CMSC508 - Deliverable 4 - GAME ER Diagrams
+author: Kevin Phung, Boden khan, Christ Le
+date: last-modified 10/13/2023
+format:
+  html: 
+      toc: true
+      embed-resources: true
+---
+
+<h4 style="margin-bottom: 25px">The world of video games is a vast and ever-expanding realm that encompasses a diverse range of genres, platforms, and experiences. While major video game releases often receive extensive coverage and reviews in the media, there exists a substantial number of games that remain relatively untouched by mainstream attention. These lesser-known games may offer unique and engaging experiences that go unnoticed by potential players. This problem domain seeks to address the need for a comprehensive database and tool that can provide valuable information about these underrepresented video games, allowing consumers to make informed decisions when choosing which games to play.
+<br>For Deliverable 4, there are models of chen representing each of the following major entities, attributes and the relationships</h4>
+
+### Conceptual design in Chen Notation
+```{dot}
+graph ER {
+  layout=neato;
+  scale=1.0;
+  node [shape=box]; Final, Game, Tag, Engine, Devices, Review, Developer, Publisher;
+  node [shape=ellipse];  Final_ID, Final_GameName, Game_ID, Game_Name, Game_Age_Rating, Game_Release_Date, Game_DLC, Tag_ID, Tag_Name, Engine_ID, Engine_Name, Devices_ID, Devices_Name, Devices_Type, Review_ID, Review_Title, Review_ReviewerName, Review_Comment, Developer_ID, Developer_Name, Publisher_ID, Publisher_Name;
+  node [shape=diamond,style=filled,color=lightgrey]; has
+  
+  Final -- has [label = "N", len=5.00]
+  has -- Game [label = "N", len=3.00]
+  has -- Tag [label = "N", len=3.00]
+  has -- Engine [label = "N", len=3.00]
+  has -- Devices [label = "N", len=3.00]
+  has -- Review [label = "N", len=3.00]
+  has -- Developer [label = "N", len=3.00]
+  has -- Publisher [label = "N", len=3.00]
+
+  Final -- Final_ID [len=2.00]
+  Final -- Final_GameName [len=2.00]
+
+  Game -- Game_ID [len=2.00]
+  Game -- Game_Name [len=2.00]
+  Game -- Game_Age_Rating [len=2.00]
+  Game -- Game_Release_Date [len=2.00]
+  Game -- Game_DLC [len=2.00]
+
+  Tag -- Tag_ID [len=2.00]
+  Tag -- Tag_Name [len=2.00]
+
+  Engine -- Engine_ID [len=2.00]
+  Engine -- Engine_Name[len=2.00]
+
+  Devices -- Devices_ID [len=2.00]
+  Devices -- Devices_Name [len=2.00]
+  Devices -- Devices_Type[len=2.00]
+
+  Review -- Review_ID [len=2.00]
+  Review -- Review_Title [len=2.00]
+  Review -- Review_ReviewerName [len=2.00]
+  Review -- Review_Comment [len=2.00]
+
+  Developer -- Developer_ID [len=2.00]
+  Developer -- Developer_Name [len=2.00]
+
+  Publisher -- Publisher_ID [len=2.00]
+  Publisher -- Publisher_Name [len=2.00]
+
+}
+```

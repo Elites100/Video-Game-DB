@@ -1,0 +1,201 @@
+- Game Relations
+    - Attributes
+      - GameID
+        - Type
+          - Integer
+        - Domain
+          - Integers
+
+      - GameName
+          - Type
+            - String
+          - Domain
+            - String 
+
+      - TagID
+        - Type
+          - Integer
+        - Domain
+          - Integers
+
+      - TagName
+        - Type
+          - String
+        - Domain
+          - Single Player, Multiplayer, Cross Platform, FPS,Horror, Simulator, Action, Adventure, Role-Playing, Sports/Racing etc
+
+      - AgeRating
+        - Type
+          - String
+        - Domain
+          - E, E10+, T, M, A, 3, 7 ,12, 16, 18
+
+      - ReleaseDate
+        - Type
+          - Integer
+        - Domain
+          - Calender Dates
+
+      - DLC
+        - Type
+          - String
+        - Domain
+          - String
+
+      - Platforms
+        - Type
+          - String
+        - Domain
+          - Xbox, Playstation, Nintendo, PC, etc
+  
+    - Primary Key
+      - GameID
+    - Foriegn Key
+      - TagID
+      - GenreID
+    - Other Constraints
+
+- Creator Relations
+    - Attributes
+      - PublisherID
+        - Type
+          - Integer
+        - Domain
+          - Integers
+
+      - PublisherName
+        - Type
+          - String
+        - Domain
+          - String
+  
+      - Developer/StudioID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+
+      - Developer/StudioName
+        - Type
+          - String
+        - Domain
+          - String
+
+    - Constraint
+  
+    - Primary Key
+      - Developer/StudioID
+    - Foriegn Key
+      - PublisherID
+    - Other Constraints
+
+- Review Relations
+    - Attributes
+      - ReviewID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+
+      - Review
+        - Type
+          - String
+        - Domain
+          - String
+
+      - ReviewerID
+        - Type
+          - String
+        - Domain
+          - String
+
+      - ReviewerName
+        - Type
+          - String
+        - Domain
+          - String
+
+      - CommentID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+
+      - Comment
+        - Type
+          - String
+        - Domain
+          - String
+
+      - CommentorID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+
+      - CommentorName
+        - Type
+          - String
+        - Domain
+          - String
+
+      - Stars
+        - Type
+          - Integers
+        - Domain
+          - 1-Star, 2-Star, 3-Star, 4-Star, 5-Star
+  
+    - Primary Key
+      - ReviewID
+    - Foriegn Key
+      - CommentorID
+      - CommentID
+    - Other Constraints
+
+
+- System Relations
+    - Attribute
+      - DeviceID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+
+      - DeviceName
+        - Type
+          - String
+        - Domain
+          - Xbox, PlayStation, Nintendo, PC, etc
+
+      - SystemID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+
+      - SystemName
+        - Type
+          - String
+        - Domain
+          - Linux, Window, Mac, etc
+
+      - EngineID
+        - Type
+          - Integer
+        - Domain
+          - Integer
+        
+      - EngineName
+        - Type
+          - String
+        - Domain
+          - Unity, Unreal, Frost, Etc
+
+    - Constraint
+  
+    - Primary Key
+      - DeviceID
+    - Foriegn Key
+      - SystemID
+      - EngineID
+    - Other Constraints

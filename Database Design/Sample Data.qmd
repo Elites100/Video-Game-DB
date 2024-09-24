@@ -1,0 +1,68 @@
+---
+title: Sample Data
+date: 10/13/23
+author: Christ Le, Kevin Phung, Bodhen Kahn
+format:
+    html:
+        theme: simplex
+        toc: false
+        embed-resources: true
+---
+
+::: {#tbl-panel layout-ncol=7}
+
+| GameID |    GameName   | TagID | TagName | AgeRating | ReleaseDate | DLC |      Platform     |
+|--------|---------------|-------|---------|-----------|-------------|-----|-------------------|
+|1       | The Witcher 3 |  101  |  RPG    | M         |2015-05-19   |Yes  |PC,PS4,Xbox One    |
+|2       | Minecraft     |  102  | Sandbox | E10+      |2011-11-18   |Yes  |PC, Console, Mobile|
+|3       | Overwatch     |  103  |  FPS    | T         |2016-05-24   |Yes  |PC, PS4, Xbox On   |
+|4       | Stardew Valley|  104  |  Sim    | E         |2016-02-26   |Yes  |PC, Console, Mobile|
+|5       | GTA V         |  106  | Action  | M         |2013-09-17   |Yes  |PC, PS4, Xbox One  |
+|6       | Fortnite      |  107  |  BR     | T         |2017-07-25   |Yes  |PC, Console, Mobile|
+|7       | Cyberpunk 2077|  108  |  RPG    | M         |2020-12-10   |Yes  |PC, PS4, Xbox One  |
+|8       | Among Us      |  109  |Soc-Deduc| E10+      |2018-11-16   |No   |PC, Mobile         |
+|9       | Rocket League |  111  | Sports  | E         |2015-07-07   |Yes  |PC, Console, Mobile|
+
+Games Relation
+:::
+
+::: {#tbl-panel layout-ncol=7}
+
+| DeveloperID | StudioName   | PublisherID | PublisherName | Game           |
+|-------------|--------------|------------|---------------|----------------|
+| 101         | Developer A | 201        | Publisher X   | Game 1         |
+| 102         | Developer B | 202        | Publisher Y   | Game 2         |
+| 103         | Developer C | 203        | Publisher Z   | Game 3         |
+| 104         | Developer D | 204        | Publisher X   | Game 4         |
+| 105         | Developer E | 205        | Publisher Z   | Game 5         |
+
+Creator Relation
+:::
+
+::: {#tbl-panel layout-ncol=7}
+
+| ReviewID | Review      | ReviewerName | CommentID | Comment      | CommentorID | CommentorName | Game           |
+|----------|------------|-------------|-----------|-------------|------------|--------------|----------------|
+| 101      | Good game! | Reviewer A  | 201       | Great review | 301        | Commentor X  | Game 1         |
+| 102      | Awesome    | Reviewer B  | 202       | Well done!   | 302        | Commentor Y  | Game 2         |
+| 103      | Meh        | Reviewer C  | 203       | Nice game    | 303        | Commentor Z  | Game 3         |
+| 104      | Impressive | Reviewer D  | 204       | Keep it up!  | 304        | Commentor X  | Game 4         |
+| 105      | Great job  | Reviewer E  | 205       | Fun to play  | 305        | Commentor Z  | Game 5         |
+
+Review Relation
+:::
+
+::: {#tbl-panel layout-ncol=7}
+
+| DeviceID | DeviceName | SystemID | SystemName | EngineID | EngineName |
+|----------|------------|----------|------------|----------|------------|
+| 101      | Device A   | 201      | System X   | 301      | Engine 1   |
+| 102      | Device B   | 202      | System Y   | 302      | Engine 2   |
+| 103      | Device C   | 203      | System Z   | 303      | Engine 3   |
+| 104      | Device D   | 204      | System X   | 304      | Engine 1   |
+| 105      | Device E   | 205      | System Z   | 305      | Engine 3   |
+| 106      | Device F   | 206      | System Y   | 306      | Engine 2   |
+| 107      | Device G   | 207      | System X   | 307      | Engine 1   |
+
+System Relation
+:::
